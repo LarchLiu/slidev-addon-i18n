@@ -14,5 +14,8 @@
   },
   "dependencies": {
     "slidev-addon-i18nb": "workspace:*"
+  },
+  "devDependencies": {
+    "@iconify-json/lucide": "^1.2.44"
   }
 }

@@ -66,6 +66,10 @@ importers:
       slidev-addon-i18nb:
         specifier: workspace:*
         version: link:..
+    devDependencies:
+      '@iconify-json/lucide':
+        specifier: ^1.2.44
+        version: 1.2.44
 
 packages:
 
@@ -547,6 +551,9 @@ packages:
 
   '@iconify-json/carbon@1.2.8':
     resolution: {integrity: sha512-6xh4YiFBz6qoSnB3XMe23WvjTJroDFXB17J1MbiT7nATFe+70+em1acRXr8hgP/gYpwFMHFc4IvjA/IPTPnTzg==}
+
+  '@iconify-json/lucide@1.2.44':
+    resolution: {integrity: sha512-lOwXoOtkFm4Zj1duPj5xqhPKKMUvxVRMfIHi0YDfwLjEEgrhzsJZ4JCpE119L8P8p6zi4on4b9cPZdVXCUuDoQ==}
 
   '@iconify-json/ph@1.2.2':
     resolution: {integrity: sha512-PgkEZNtqa8hBGjHXQa4pMwZa93hmfu8FUSjs/nv4oUU6yLsgv+gh9nu28Kqi8Fz9CCVu4hj1MZs9/60J57IzFw==}
@@ -4279,6 +4286,10 @@ snapshots:
   '@humanwhocodes/retry@0.4.3': {}
 
   '@iconify-json/carbon@1.2.8':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/lucide@1.2.44':
     dependencies:
       '@iconify/types': 2.0.0
 
