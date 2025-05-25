@@ -1,0 +1,51 @@
+{
+  "name": "slidev-addon-i18n",
+  "type": "module",
+  "version": "0.1.0",
+  "private": false,
+  "description": "i18n addon for Slidev",
+  "author": "Alex <larch.liu@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "slidev",
+    "slidev-addon",
+    "i18n"
+  ],
+  "files": [
+    "setup/*"
+  ],
+  "engines": {
+    "node": ">=14.0.0",
+    "slidev": ">=51.0.0"
+  },
+  "scripts": {
+    "dev": "slidev example.md --open",
+    "build": "slidev build example.md",
+    "build:example": "pnpm --filter 'example' run build",
+    "lint": "eslint .",
+    "release": "bumpp package.json --commit --push --tag",
+    "ci:publish": "pnpm publish --access public --no-git-checks",
+    "up": "taze major -r",
+    "up:w": "taze major -r -w"
+  },
+  "dependencies": {
+    "@intlify/unplugin-vue-i18n": "^6.0.8",
+    "@vueuse/core": "^13.2.0",
+    "vue-i18n": "^11.1.4"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.13.2",
+    "@iconify-json/carbon": "^1.2.8",
+    "@slidev/cli": "^51.8.0",
+    "@slidev/client": "^51.8.0",
+    "@slidev/theme-seriph": "^0.25.0",
+    "@slidev/types": "^51.8.0",
+    "bumpp": "^10.1.1",
+    "eslint": "^9.27.0",
+    "eslint-plugin-format": "^1.0.1",
+    "taze": "^19.1.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vue": "^3.5.14"
+  }
+}
