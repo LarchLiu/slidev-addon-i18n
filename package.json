@@ -1,7 +1,7 @@
 {
   "name": "slidev-addon-i18nb",
   "type": "module",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": false,
   "description": "i18n addon for Slidev",
   "author": "Alex <larch.liu@gmail.com>",
