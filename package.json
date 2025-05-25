@@ -43,6 +43,7 @@
     "bumpp": "^10.1.1",
     "eslint": "^9.27.0",
     "eslint-plugin-format": "^1.0.1",
+    "pnpm": "^10.11.0",
     "taze": "^19.1.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",

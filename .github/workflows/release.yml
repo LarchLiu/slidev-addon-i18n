@@ -16,7 +16,9 @@ jobs:
         with:
           node-version: '20'
           registry-url: https://registry.npmjs.org/
-      - run: npm run ci:publish
+      - run: npm i -g pnpm @antfu/ni
+      - run: nci
+      - run: nr ci:publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
