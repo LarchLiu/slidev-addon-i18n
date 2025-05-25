@@ -86,7 +86,7 @@ addons:
   </div>
 
   <div mb-2>
-    <kbd>space</kbd>
+    <kbd>space</kbd><sub ml-1>or</sub>
   </div>
 
   <div>
