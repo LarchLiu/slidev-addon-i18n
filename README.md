@@ -21,7 +21,7 @@ addons:
 
 ## Usage
 
-> You can see example code [here](./example)
+> You can see the example code [here](./example)
 
 - Create `locales` directory in the root of your project, and add your locale files like `en.yml`, `zh.yml`, etc.
 
