@@ -14,7 +14,7 @@ const { t } = useI18n({
   <MenuButton>
     <template #button>
       <button class="slidev-icon-btn" :title="t('toggle_langs')">
-        <div i-carbon-ibm-watson-language-translator />
+        <div i-carbon-language />
       </button>
     </template>
     <template #menu>
