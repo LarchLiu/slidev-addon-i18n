@@ -7,7 +7,7 @@
 ## Installation
 
 ```bash
-npm i slidev-addon-i18n
+npm i slidev-addon-i18nb
 ```
 
 Then add the `addons` option in your [headmatter](https://sli.dev/custom/#headmatter):
@@ -15,7 +15,7 @@ Then add the `addons` option in your [headmatter](https://sli.dev/custom/#headma
 ```yaml
 ---
 addons:
-  - slidev-addon-i18n
+  - slidev-addon-i18nb
 ---
 ```
 

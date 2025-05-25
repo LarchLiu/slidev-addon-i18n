@@ -1,11 +1,16 @@
 {
-  "name": "slidev-addon-i18n",
+  "name": "slidev-addon-i18nb",
   "type": "module",
   "version": "0.1.0",
   "private": false,
   "description": "i18n addon for Slidev",
   "author": "Alex <larch.liu@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LarchLiu/slidev-addon-i18n.git"
+  },
+  "bugs": "https://github.com/LarchLiu/slidev-addon-i18n/issues",
   "keywords": [
     "slidev",
     "slidev-addon",
