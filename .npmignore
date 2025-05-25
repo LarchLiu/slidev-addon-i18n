@@ -17,3 +17,4 @@ scripts/
 eslint.config.js
 tsconfig.json
 example/
+vercel.json
