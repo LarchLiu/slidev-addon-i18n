@@ -16,6 +16,11 @@
     "slidev-addon",
     "i18n"
   ],
+  "files": [
+    "components/*",
+    "custom-nav-controls.vue",
+    "setup/*"
+  ],
   "engines": {
     "node": ">=14.0.0",
     "slidev": ">=51.0.0"
