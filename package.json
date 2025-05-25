@@ -16,9 +16,6 @@
     "slidev-addon",
     "i18n"
   ],
-  "files": [
-    "setup/*"
-  ],
   "engines": {
     "node": ">=14.0.0",
     "slidev": ">=51.0.0"

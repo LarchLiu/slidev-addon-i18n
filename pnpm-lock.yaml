@@ -63,7 +63,7 @@ importers:
 
   example:
     dependencies:
-      slidev-addon-i18n:
+      slidev-addon-i18nb:
         specifier: workspace:*
         version: link:..
 
