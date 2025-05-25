@@ -16,4 +16,4 @@ example.md
 scripts/
 eslint.config.js
 tsconfig.json
-test/
+example/
