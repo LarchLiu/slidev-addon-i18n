@@ -5,7 +5,7 @@ background: https://cover.sli.dev
 mdc: true
 transition: fade
 addons:
-  - slidev-addon-i18n
+  - slidev-addon-i18nb
 ---
 
 # {{ $t("title") }}

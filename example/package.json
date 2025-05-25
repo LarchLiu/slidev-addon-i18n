@@ -13,6 +13,6 @@
     "build": "slidev build"
   },
   "dependencies": {
-    "slidev-addon-i18n": "workspace:*"
+    "slidev-addon-i18nb": "workspace:*"
   }
 }
