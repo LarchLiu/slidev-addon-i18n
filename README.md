@@ -32,7 +32,7 @@ addons:
     desc: This is a demo of Slidev i18n addon
   ```
 
-  Supported languages:
+  Default languages name:
   ```
   const langName: LangNameType = {
     ar: 'العربية',
