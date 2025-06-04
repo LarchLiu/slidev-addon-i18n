@@ -2,6 +2,6 @@
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
-  "buildCommand": "npm run build:example",
+  "buildCommand": "npm run build:deploy",
   "outputDirectory": "example/dist"
 }
