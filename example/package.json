@@ -9,8 +9,9 @@
     "slidev": ">=51.0.0"
   },
   "scripts": {
-    "dev": "slidev --open",
-    "build": "slidev build"
+    "dev": "rm -rf ./locales_auto ./slides_transformed.md && slidev --open",
+    "build": "rm -rf ./locales_auto ./slides_transformed.md && slidev build",
+    "build:deploy": "slidev build"
   },
   "dependencies": {
     "slidev-addon-i18nb": "workspace:*"

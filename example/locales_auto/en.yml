@@ -1,0 +1,30 @@
+slidev_i18n_addon_title: Slidev i18n addon
+addon_description: >-
+  The Slidev i18n addon is a powerful plugin designed to bring comprehensive
+  internationalization capabilities to your Slidev presentations.
+call_to_action_space_click: Press Space or Click Me
+or_subscript: or
+installationHeading: Installation
+thenAddThePrefix: 'Then add the '
+optionInSuffix: ' option in '
+usageTitle: Usage
+manualTranslationTitle: Manual translation
+createLocalesDirPart1: 'Create '
+createLocalesDirPart2: 'directory in the root of your project, and add your locale files like '
+createLocalesDirPart3: ', etc.'
+useI18nPlaceholderPart1: 'Use '
+useI18nPlaceholderPart2: ' to write i18n.'
+autoTransformTitle: Auto transform
+i18nConfigurationTitle: I18n Configuration
+autoTransformDescription: Whether to automatically transform markdown content to i18n format.
+languagesDescription: Specify the languages supported by the addon.
+addThe: 'Add the '
+optionIn: ' option in '
+setEnvVariablesTitle: Set env variables in .env file
+checkDir: 'Check the dir '
+generatedTranslationFiles: ' for the generated translation files.'
+and: 'And '
+transformedSlidesInfo: ' for the transformed slides info.'
+ps: 'PS. '
+justForReferenceDelete: ' is just for reference, you can delete it after the translation is done.'
+defaultLanguagesName: Default languages name

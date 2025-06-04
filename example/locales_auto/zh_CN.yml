@@ -1,0 +1,28 @@
+slidev_i18n_addon_title: Slidev i18n 插件
+addon_description: Slidev i18n 插件是一个功能强大的插件，旨在为您的 Slidev 演示文稿带来全面的国际化功能。
+call_to_action_space_click: 按空格键或点击我
+or_subscript: 或
+installationHeading: 安装
+thenAddThePrefix: '然后添加 '
+optionInSuffix: ' 选项在 '
+usageTitle: 使用
+manualTranslationTitle: 手动翻译
+createLocalesDirPart1: '创建 '
+createLocalesDirPart2: '目录在您的项目根目录中，并添加您的语言环境文件，例如 '
+createLocalesDirPart3: 等。
+useI18nPlaceholderPart1: '使用 '
+useI18nPlaceholderPart2: ' 来编写 i18n。'
+autoTransformTitle: 自动转换
+i18nConfigurationTitle: I18n 配置
+autoTransformDescription: 是否自动将Markdown内容转换为i18n格式。
+languagesDescription: 指定插件支持的语言。
+addThe: 添加
+optionIn: 选项到
+setEnvVariablesTitle: 在.env文件中设置环境变量
+checkDir: '请检查目录 '
+generatedTranslationFiles: ' 中生成的翻译文件。'
+and: '以及 '
+transformedSlidesInfo: ' 中转换后的幻灯片信息。'
+ps: '附注. '
+justForReferenceDelete: ' 仅供参考，翻译完成后可以删除。'
+defaultLanguagesName: 默认语言名称

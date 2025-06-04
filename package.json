@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.1.6",
   "private": false,
+  "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977",
   "description": "i18n addon for Slidev",
   "author": "Alex <larch.liu@gmail.com>",
   "license": "MIT",
@@ -29,6 +30,7 @@
     "dev": "slidev example.md --open",
     "build": "slidev build example.md",
     "build:example": "pnpm --filter 'example' run build",
+    "build:deploy": "pnpm --filter 'example' run build:deploy slides_transformed.md",
     "lint": "eslint .",
     "release": "bumpp package.json --commit --push --tag",
     "ci:publish": "pnpm publish --access public --no-git-checks",
@@ -38,6 +40,8 @@
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "^6.0.8",
     "@vueuse/core": "^13.2.0",
+    "js-yaml": "^4.1.0",
+    "openai": "^5.1.0",
     "vue-i18n": "^11.1.4"
   },
   "devDependencies": {
@@ -47,6 +51,7 @@
     "@slidev/client": "^51.8.0",
     "@slidev/theme-seriph": "^0.25.0",
     "@slidev/types": "^51.8.0",
+    "@types/js-yaml": "^4.0.9",
     "bumpp": "^10.1.1",
     "eslint": "^9.27.0",
     "eslint-plugin-format": "^1.0.1",
