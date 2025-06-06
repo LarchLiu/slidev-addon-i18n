@@ -6,11 +6,10 @@ import OpenAI from 'openai'
 import { loadEnv } from 'vite'
 
 const sysPrompt = `
-角色 (Persona): 你是一个翻译助手，能够将文本翻译成多种语言。现在需要为 vue 应用提供多语言支持。
+角色 (Persona): 你是一个翻译助手，能够将文本翻译成多种语言。现在需要为 slides 应用提供多语言支持。
 背景与目标 (Background & Objective):
-- 请根据 Vue I18n 的规则将文本分段翻译，并将翻译文本替换为 \`{{ $t("key") }}\` 的形式。
+- 请将用户给定 slides 文本分段翻译，并将翻译文本替换为 \`{{ $t("key") }}\` 的形式(不可以用任何 interpolation)。
 - 请将翻译结果存储在一个对象中，键为每行的 \`key\` ，值为翻译后的文本。
-- 请确保翻译结果符合 i18n 的规范，并且能够被 Vue I18n 解析。
 
 核心任务 (Core Task):
 1.  接收用户提供的 slides。
@@ -19,12 +18,12 @@ const sysPrompt = `
 4.  重写与翻译 (Rewrite and translate): 基于提取的信息，提供翻译结果和重写 slide（替换为\`{{ $t("key") }}\` 的形式）。
 
 关键要求与约束 (Key Requirements & Constraints):
-- 如果文本中包含 HTML 标签(div,span,img,br,h1,h2...)，需要把该行分段翻译，请保留标签不变，只翻译文本内容。
+- 如果文本中包含 HTML tag(div,span,img,br,b,strong,h1,h2 等所有 html tag)，保证 tag 及其属性不变, 然后基于 tag 把该行分段翻译，且保证 tag 不可以出现在翻译文本中。
 - 如果是代码块，请保留所有代码不变，只翻译代码块外的文本。
-- 如果是 vue 组件，请保留组件名称和属性不变(components name, props name and value)。
-- 如果文本中包含一个或多个 *\`<inline code>\`*, 需要把该行分段翻译，并且保留 *\`<inline code>\`* 不变。
-- 如果文本中包含 markdown 格式(\`#,##,###,*,**,~,-,\`,> ...\`), 需要把该行分段翻译，请保留 markdown 原有格式，只翻译文本内容, 不可随意删除 markdown 语法格式。
-- 如果文本中包含变量或占位符 \`{<variable>}\`, 需要把该行分段翻译，保留 \`{<variable>}\` 不变。
+- 如果是 vue 组件，请保留组件名称和属性不变(components name, props name and value)，且不可出现在翻译文本中。
+- 如果文本中包含一个或多个 \`\`<inline code>\`\`，保留所有 \`\`<inline code>\`\` 不变,不需要翻译且不可出现在翻译文本中, 然后基于 \`\`<inline code>\`\` 把该行分段翻译。
+- 如果文本中包含 markdown 格式(\`#,##,###,*,**,~,-,\`,> ...\`), 请保留 markdown 原有格式的相关符号, 然后把该行基于 markdown 格式分段翻译。只翻译文本内容, 不可随意删除 markdown 语法格式。
+- 如果文本中包含变量或占位符 \`{<variable>}\`, 需要把该行分段翻译，保留 \`{<variable>}\` 不变且不可以出现在翻译文本中。
 - 翻译后的文本中不可以有 markdown 格式, 不可以自行添加 markdown 格式。
 - 原文语言的文本不需要翻译。
 - 专业术语或技术词汇可以保留原文。
@@ -46,13 +45,7 @@ const sysPrompt = `
 }
 }
 **i18n 中的键值要与给定的翻译语言完全一致, 翻译的语言为{languages}**
-
-特别注意：
 **必须保证原文不做任何改动, 不可以自主添加任何 markdown 格式**
-**始终记得不要把 markdown 格式中的 \`#,##,###,*,**,~,-,\`,> ...\` 等字符带入翻译文本**
-**始终记得不要把 html 标签带入翻译文本(div,span,img,br,h1,h2...)**
-**始终记得不要把 inline code 带入翻译文本**
-**始终记得不要把 {<variable>} 带入翻译文本**
 `
 function getSystemPrompt(languages: string[]) {
   return sysPrompt.replace('{languages}', languages.join(', '))
@@ -106,15 +99,20 @@ export default definePreparserSetup(({ headmatter, mode }) => {
           console.warn(`Translation took ${endTime - startTime} ms`)
           for (const [key, value] of Object.entries(data.i18n)) {
             const path = `./locales_auto/${key}.yml`
+            // https://vue-i18n.intlify.dev/guide/essentials/syntax.html#special-characters
+            const regex = /([@$|])/g
+            const replacement = `{"$1"}`
+            const yamlContent = yaml.dump(value).replace(regex, replacement)
+            const jsonContent = yaml.load(yamlContent)
             if (fs.existsSync(path)) {
               // If file exists, read existing content and merge with new data
               const existingContent = yaml.load(fs.readFileSync(path, 'utf-8')) as Record<string, unknown>
               if (existingContent && typeof existingContent === 'object') {
-                const mergedContent = Object.assign({}, existingContent, value)
+                const mergedContent = Object.assign({}, existingContent, jsonContent)
                 fs.writeFileSync(path, yaml.dump(mergedContent), 'utf-8')
               }
               else {
-                fs.writeFileSync(path, yaml.dump(value), 'utf-8')
+                fs.writeFileSync(path, yaml.dump(jsonContent), 'utf-8')
               }
             }
             else {
@@ -123,7 +121,7 @@ export default definePreparserSetup(({ headmatter, mode }) => {
               if (!fs.existsSync(dir)) {
                 fs.mkdirSync(dir, { recursive: true })
               }
-              fs.writeFileSync(path, yaml.dump(value), 'utf-8')
+              fs.writeFileSync(path, yaml.dump(jsonContent), 'utf-8')
             }
           }
 
