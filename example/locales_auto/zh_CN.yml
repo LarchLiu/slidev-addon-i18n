@@ -1,62 +1,28 @@
-coreTeamMember: 核心团队成员
-creatorOf: 创建者
-maintainerOf: 维护者
-workingAt: 就职于
-japaneseNote: (日语)
-movedFromParisToTokyo: 两个月前从巴黎搬到了东京！
-niceToMeetYou: 请多关照！
-theNew: 全新
-eslintConfig: '{"@"}ESLint 配置'
-withText: 与
-typeSafety: 类型安全
-date: 2025年5月23日
-mainQuestionPart1: '听说过新的 ESLint '
-flatConfigTerm: Flat Config
-mainQuestionPart2: ？
-japaneseFlatConfigTerm: Flat Config
-japaneseQuestionSuffix: ' 知道吗？'
-using: 正在使用
-already: 了吗？
-released: 发布于
-heardAboutNewEslint: 听说过新的 ESLint
-headingQuestionPart1: 🙋 正在使用
-headingQuestionFlatConfig: Flat Config
-headingQuestionPart2: 了吗？
-legacyConfig: 传统配置
-multipleFormats: 多种格式
-etc: 等
-conventionBased: 基于约定
-packageNameBased: 基于包名
-inheritanceTreeComplex: 继承树可能很复杂
-noTypes: 无类型
-flatConfig: 扁平化配置
-singleSource: 单一来源
-alsoSupportsTsFile: 也支持 `.ts` 文件！
-explicitNativeImports: 显式原生导入
-pluginsAreObjects: 插件是对象
-capabilityToRenamePlugins: 能够重命名插件
-composableEasierToTrace: 可组合，更易于追溯
-typeScriptFriendly: TypeScript 友好
-flatConfigTitle: 扁平化配置
-rfcCreationDate: RFC 于 2019 年 1 月创建
-experimentalIn: 在
-stableSince: 自
-defaultSince: 自
-shipsTypeDeclarationsSince: 自
-noLongerNeeded: 不再需要
-supportsTypeScriptConfigSince: 自
-migrationTitle: 迁移
-cliToolDescription: 用于将旧版配置转换为扁平化配置的 CLI 工具
-toolingsTitle: 工具
-newToolsDescription: 新工具和可能性，与
-official: 官方
-visualizeConfig: 可视化您的配置
-understandComposition: 理解其构成
-inPlaceDocumentations: 就地文档
-filePathTester: 文件路径测试器
-legacyConfigTitle: 传统配置
-sharedConfigsAcceptOptions: 共享配置接受用户选项。
-oneConfigAdaptsAllProjects: 一个配置适应所有项目。
-typeSafeInlineJsdocs: 类型安全，带有内联 jsdocs 文档。
-simpleConfigLikePrettier: 像 Prettier 一样简单的配置。
-powerfulFlexibleLikeEslint: 像 ESLint 一样强大灵活。
+slidev_i18n_addon_title: Slidev i18n 插件
+addon_description: Slidev i18n 插件是一个功能强大的插件，旨在为您的 Slidev 演示文稿带来全面的国际化功能。
+call_to_action_space_click: 按空格键或点击我
+or_subscript: 或
+installationHeading: 安装
+thenAddThePrefix: '然后添加 '
+optionInSuffix: ' 选项在 '
+usageTitle: 使用
+manualTranslationTitle: 手动翻译
+createLocalesDirPart1: '创建 '
+createLocalesDirPart2: '目录在您的项目根目录中，并添加您的语言环境文件，例如 '
+createLocalesDirPart3: 等。
+useI18nPlaceholderPart1: '使用 '
+useI18nPlaceholderPart2: ' 来编写 i18n。'
+autoTransformTitle: 自动转换
+i18nConfigurationTitle: I18n 配置
+autoTransformDescription: 是否自动将Markdown内容转换为i18n格式。
+languagesDescription: 指定插件支持的语言。
+addThe: 添加
+optionIn: 选项到
+setEnvVariablesTitle: 在.env文件中设置环境变量
+checkDir: '请检查目录 '
+generatedTranslationFiles: ' 中生成的翻译文件。'
+and: '以及 '
+transformedSlidesInfo: ' 中转换后的幻灯片信息。'
+ps: '附注. '
+justForReferenceDelete: ' 仅供参考，翻译完成后可以删除。'
+defaultLanguagesName: 默认语言名称

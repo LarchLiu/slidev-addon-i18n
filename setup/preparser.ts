@@ -1,6 +1,5 @@
 import type { AIResponseData, I18nConfig } from './types'
 import fs from 'node:fs'
-import process from 'node:process'
 import { definePreparserSetup } from '@slidev/types'
 import yaml from 'js-yaml'
 import OpenAI from 'openai'
@@ -74,7 +73,7 @@ export default definePreparserSetup(({ headmatter, mode }) => {
 
           const response = await openai.chat.completions.create({
             model: env.I18N_AI_MODEL,
-            reasoning_effort: 'high',
+            reasoning_effort: "high",
             temperature: 0.01,
             messages: [
               { role: 'system', content: getSystemPrompt(i18nConfig.languages) },
