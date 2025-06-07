@@ -1,30 +1,62 @@
-slidev_i18n_addon_title: Slidev i18n addon
-addon_description: >-
-  The Slidev i18n addon is a powerful plugin designed to bring comprehensive
-  internationalization capabilities to your Slidev presentations.
-call_to_action_space_click: Press Space or Click Me
-or_subscript: or
-installationHeading: Installation
-thenAddThePrefix: 'Then add the '
-optionInSuffix: ' option in '
-usageTitle: Usage
-manualTranslationTitle: Manual translation
-createLocalesDirPart1: 'Create '
-createLocalesDirPart2: 'directory in the root of your project, and add your locale files like '
-createLocalesDirPart3: ', etc.'
-useI18nPlaceholderPart1: 'Use '
-useI18nPlaceholderPart2: ' to write i18n.'
-autoTransformTitle: Auto transform
-i18nConfigurationTitle: I18n Configuration
-autoTransformDescription: Whether to automatically transform markdown content to i18n format.
-languagesDescription: Specify the languages supported by the addon.
-addThe: 'Add the '
-optionIn: ' option in '
-setEnvVariablesTitle: Set env variables in .env file
-checkDir: 'Check the dir '
-generatedTranslationFiles: ' for the generated translation files.'
-and: 'And '
-transformedSlidesInfo: ' for the transformed slides info.'
-ps: 'PS. '
-justForReferenceDelete: ' is just for reference, you can delete it after the translation is done.'
-defaultLanguagesName: Default languages name
+coreTeamMember: Core team member of
+creatorOf: Creator of
+maintainerOf: Maintainer of
+workingAt: Working at
+japaneseNote: (Japanese)
+movedFromParisToTokyo: Moved from Paris to Tokyo 2 months ago!
+niceToMeetYou: Nice to meet you!
+theNew: The New
+eslintConfig: '{"@"}ESLint Config'
+withText: with
+typeSafety: Type Safety
+date: May 23, 2025
+mainQuestionPart1: 'Heard about the new ESLint '
+flatConfigTerm: Flat Config
+mainQuestionPart2: '?'
+japaneseFlatConfigTerm: Flat Config
+japaneseQuestionSuffix: ' Do you know?'
+using: Using
+already: already?
+released: Released
+heardAboutNewEslint: Heard about the new ESLint
+headingQuestionPart1: 🙋 Using
+headingQuestionFlatConfig: Flat Config
+headingQuestionPart2: already?
+legacyConfig: Legacy Config
+multipleFormats: Multiple formats
+etc: etc.
+conventionBased: Convention based
+packageNameBased: Package name based
+inheritanceTreeComplex: Inheritance tree can be complex
+noTypes: No types
+flatConfig: Flat Config
+singleSource: Single source
+alsoSupportsTsFile: also supports `.ts` file!
+explicitNativeImports: Explicit native imports
+pluginsAreObjects: Plugins are objects
+capabilityToRenamePlugins: capability to rename plugins
+composableEasierToTrace: Composable, easier to trace back
+typeScriptFriendly: TypeScript friendly
+flatConfigTitle: Flat Config
+rfcCreationDate: RFC was created at January 2019
+experimentalIn: Experimental in
+stableSince: Stable since
+defaultSince: Default since
+shipsTypeDeclarationsSince: Ships type declarations since
+noLongerNeeded: is no longer needed
+supportsTypeScriptConfigSince: Supports TypeScript config since
+migrationTitle: Migration
+cliToolDescription: CLI tool to convert legacy config to flat config
+toolingsTitle: Toolings
+newToolsDescription: New tools and possibilities with
+official: Official
+visualizeConfig: Visualize your config
+understandComposition: Understand the composition
+inPlaceDocumentations: In-place documentations
+filePathTester: File path tester
+legacyConfigTitle: Legacy Config
+sharedConfigsAcceptOptions: Shared configs accept user options.
+oneConfigAdaptsAllProjects: One config adapts to all projects.
+typeSafeInlineJsdocs: Type-safe, with inline jsdocs documentation.
+simpleConfigLikePrettier: Simple configuration like Prettier.
+powerfulFlexibleLikeEslint: Powerful and flexible like ESLint.
