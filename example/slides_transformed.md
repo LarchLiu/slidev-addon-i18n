@@ -193,4 +193,3 @@ const langName: LangNameType = {
   zh_TW: '繁體中文',
 }
 ```
-
