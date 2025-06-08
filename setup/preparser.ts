@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { AIResponseData, I18nConfig } from './types'
 import fs from 'node:fs'
 import process from 'node:process'
@@ -6,7 +7,7 @@ import yaml from 'js-yaml'
 import OpenAI from 'openai'
 import { loadEnv } from 'vite'
 
-const sysPrompt = `
+const transformPrompt = `
 角色 (Persona): 你是一个翻译助手，能够将文本翻译成多种语言。现在需要为 slides 应用提供多语言支持。
 背景与目标 (Background & Objective):
 - 请将用户给定 slides 文本分段翻译，并将翻译文本替换为 \`{{ $t("key") }}\` 的形式(不可以用任何 interpolation)。
@@ -48,8 +49,41 @@ const sysPrompt = `
 **i18n 中的键值要与给定的翻译语言完全一致, 翻译的语言为{languages}**
 **必须保证原文不做任何改动, 不可以自主添加任何 markdown 格式**
 `
-function getSystemPrompt(languages: string[]) {
-  return sysPrompt.replace('{languages}', languages.join(', '))
+
+const checkPrompt = `转换输出有误，i18n 翻译文本中含有 markdown 或 html 元素 或占位符 \`{<variable>}\`：{unsupport}
+
+原始文本: 
+{content}
+
+转换后结果:
+{result}
+
+请检查后重新给出结果，仅返回 json 格式的翻译结果，不要包含其他内容。json 格式如下：
+{
+"slide": "slide content with $t('key') placeholders",
+"i18n": {
+ "en": {
+  "key1": "Translated text 1",
+  "key2": "Translated text 2",
+  ...
+},
+  "zh_CN": {
+    "key1": "翻译后的文本1",
+    "key2": "翻译后的文本2",
+    ...
+  }
+}
+}
+`
+
+// eslint-disable-next-line regexp/no-super-linear-backtracking, regexp/optimal-quantifier-concatenation
+const regexUnsupportedFormat = /(\*\*(.*?)\*\*)|(`(.*?)`)|(\{(.*?)\})|(\*(.*?)\*)|(- .*)|(<([a-z0-9]+)[^>]*>.*?<\/\11>)|(<[a-z0-9]+\s*\/>)|(<[a-z0-9][^>]*>)/gi
+function getTransformPrompt(languages: string[]) {
+  return transformPrompt.replace('{languages}', languages.join(', '))
+}
+
+function getCheckPrompt(content: string, result: string, unsupport: string) {
+  return checkPrompt.replace('{unsupport}', unsupport).replace('{content}', content).replace('{result}', result)
 }
 
 export default definePreparserSetup(({ headmatter, mode }) => {
@@ -77,7 +111,7 @@ export default definePreparserSetup(({ headmatter, mode }) => {
             reasoning_effort: 'high',
             temperature: 0.01,
             messages: [
-              { role: 'system', content: getSystemPrompt(i18nConfig.languages) },
+              { role: 'system', content: getTransformPrompt(i18nConfig.languages) },
               {
                 role: 'user',
                 content,
@@ -90,66 +124,95 @@ export default definePreparserSetup(({ headmatter, mode }) => {
           return JSON.parse(data) as AIResponseData
         }
 
-        const startTime = Date.now()
+        // const startTime = Date.now()
         try {
-          const data = await autoGetI18n(content)
+          console.warn('Transforming...')
+          console.time('Transform took')
+          let data = await autoGetI18n(content)
+          console.timeEnd('Transform took')
           if (!data || !data.i18n || !data.slide) {
             return content
           }
-          const endTime = Date.now()
-          console.warn(`Translation took ${endTime - startTime} ms`)
-          for (const [key, value] of Object.entries(data.i18n)) {
-            const path = `./locales_auto/${key}.yml`
-            // https://vue-i18n.intlify.dev/guide/essentials/syntax.html#special-characters
-            const regex = /([@$|])/g
-            const replacement = `{"$1"}`
-            const yamlContent = yaml.dump(value).replace(regex, replacement)
-            const jsonContent = yaml.load(yamlContent)
-            if (fs.existsSync(path)) {
+          // const endTime = Date.now()
+          // console.warn(`Transform took ${endTime - startTime} ms`)
+          let needCheck = false
+          let unsupportedFormat
+          do {
+            needCheck = false
+            for (const [key, value] of Object.entries(data.i18n)) {
+              const yamlStr = yaml.dump(value).replace('{}', '')
+              unsupportedFormat = yamlStr.match(regexUnsupportedFormat) || []
+              if (unsupportedFormat.length) {
+                needCheck = true
+                console.warn('Vue i18n unsupported format: ', unsupportedFormat.join(', '))
+                break
+              }
+              const path = `./locales_auto/${key}.yml`
+              // https://vue-i18n.intlify.dev/guide/essentials/syntax.html#special-characters
+              const regex = /([@$|])/g
+              const replacement = `{"$1"}`
+              const yamlContent = yamlStr.replace(regex, replacement)
+              const jsonContent = yaml.load(yamlContent)
+              if (fs.existsSync(path)) {
               // If file exists, read existing content and merge with new data
-              const existingContent = yaml.load(fs.readFileSync(path, 'utf-8')) as Record<string, unknown>
-              if (existingContent && typeof existingContent === 'object') {
-                const mergedContent = Object.assign({}, existingContent, jsonContent)
-                fs.writeFileSync(path, yaml.dump(mergedContent), 'utf-8')
+                const existingContent = yaml.load(fs.readFileSync(path, 'utf-8')) as Record<string, unknown>
+                if (existingContent && typeof existingContent === 'object') {
+                  const mergedContent = Object.assign({}, existingContent, jsonContent)
+                  fs.writeFileSync(path, yaml.dump(mergedContent), 'utf-8')
+                }
+                else {
+                  fs.writeFileSync(path, yaml.dump(jsonContent), 'utf-8')
+                }
               }
               else {
+              // If file doesn't exist, create directory if needed and write new file
+                const dir = './locales_auto'
+                if (!fs.existsSync(dir)) {
+                  fs.mkdirSync(dir, { recursive: true })
+                }
                 fs.writeFileSync(path, yaml.dump(jsonContent), 'utf-8')
               }
             }
-            else {
-              // If file doesn't exist, create directory if needed and write new file
-              const dir = './locales_auto'
-              if (!fs.existsSync(dir)) {
-                fs.mkdirSync(dir, { recursive: true })
-              }
-              fs.writeFileSync(path, yaml.dump(jsonContent), 'utf-8')
-            }
-          }
 
-          const path = './slides_transformed.md'
-          const matter = JSON.parse(JSON.stringify(frontmatter))
-          if (matter.i18n && matter.i18n.autoTransform) {
-            matter.i18n.autoTransform = false
-          }
-          const slide = `---\n${yaml.dump(matter)}---\n\n${data.slide}\n\n`
-          if (fs.existsSync(path)) {
-            const existingContent = (fs.readFileSync(path, 'utf-8'))
-            if (existingContent) {
-              fs.writeFileSync(path, (`${existingContent}${slide}`), 'utf-8')
+            if (needCheck) {
+              const checkContent = getCheckPrompt(content, JSON.stringify(data), unsupportedFormat!.join(', '))
+              console.warn('Transform again...')
+              console.time('Transform again took')
+              data = await autoGetI18n(checkContent)
+              console.timeEnd('Transform again took')
+              if (!data || !data.i18n || !data.slide) {
+                needCheck = false
+                return content
+              }
             }
             else {
-              fs.writeFileSync(path, slide, 'utf-8')
+              const path = './slides_transformed.md'
+              const matter = JSON.parse(JSON.stringify(frontmatter))
+              if (matter.i18n && matter.i18n.autoTransform) {
+                matter.i18n.autoTransform = false
+              }
+              const slide = `---\n${yaml.dump(matter)}---\n\n${data.slide}\n\n`
+              if (fs.existsSync(path)) {
+                const existingContent = (fs.readFileSync(path, 'utf-8'))
+                if (existingContent) {
+                  fs.writeFileSync(path, (`${existingContent}${slide}`), 'utf-8')
+                }
+                else {
+                  fs.writeFileSync(path, slide, 'utf-8')
+                }
+              }
+              else {
+                fs.writeFileSync(path, slide, 'utf-8')
+              }
             }
-          }
-          else {
-            fs.writeFileSync(path, slide, 'utf-8')
-          }
+          } while (needCheck)
 
           return data.slide
         }
         catch (error) {
-          const endTime = Date.now()
-          console.warn(`Translation error took ${endTime - startTime} ms`)
+          // const endTime = Date.now()
+          // console.warn(`Transform error took ${endTime - startTime} ms`)
+          console.timeEnd('Transform took')
           console.error('Error fetching i18n data:', error)
           return content
         }
