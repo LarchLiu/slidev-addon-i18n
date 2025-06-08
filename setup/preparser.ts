@@ -76,8 +76,9 @@ const checkPrompt = `转换输出有误，i18n 翻译文本中含有 markdown �
 }
 `
 
+// [foo](/bar) | [foo](./bar) | [foo](http://bar) | [foo](https://bar) | [](./foo) | *foo* | **foo** | - foo | `foo` | <foo>bar</foo> | <foo> | <foo /> | <foo any>bar</foo>
 // eslint-disable-next-line regexp/no-super-linear-backtracking, regexp/optimal-quantifier-concatenation
-const regexUnsupportedFormat = /(\*\*(.*?)\*\*)|(`(.*?)`)|(\{(.*?)\})|(\*(.*?)\*)|(- .*)|(<([a-z0-9]+)[^>]*>.*?<\/\11>)|(<[a-z0-9]+\s*\/>)|(<[a-z0-9][^>]*>)/gi
+const regexUnsupportedFormat = /(\[([^\]]+|)\]\(((https?:\/\/|\/|\.\.?\/|#)[^)]*)\))|(\*\*(.*?)\*\*)|(`(.*?)`)|(\{(.*?)\})|(\*(.*?)\*)|(- .*)|(<([a-z0-9]+)[^>]*>.*?<\/\15>)|(<[a-z0-9]+\s*\/>)|(<[a-z0-9][^>]*>)/gi
 function getTransformPrompt(languages: string[]) {
   return transformPrompt.replace('{languages}', languages.join(', '))
 }
