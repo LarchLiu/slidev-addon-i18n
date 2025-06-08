@@ -145,7 +145,7 @@ export default definePreparserSetup(({ headmatter, mode }) => {
               unsupportedFormat = yamlStr.match(regexUnsupportedFormat) || []
               if (unsupportedFormat.length) {
                 needCheck = true
-                console.warn('Vue i18n unsupported format: ', unsupportedFormat.join(', '))
+                console.warn('i18n undesired format:', unsupportedFormat.join(', '))
                 break
               }
               const path = `./locales_auto/${key}.yml`
